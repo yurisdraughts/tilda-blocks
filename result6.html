@@ -73,13 +73,9 @@
         color: #000000;
     }
 
-    .tc-block-path-6__rect_name-input {
-        letter-spacing: 0.01em;
-    }
-
     .tc-block-path-6__rect_date-input {
         letter-spacing: 0.12em;
-        width: 140px;
+        width: 100%;
         max-width: 39.05vw;
     }
 
@@ -162,41 +158,13 @@
     }
 
     .tc-form-path-6__input-wrapper {
-        display: flex;
-        justify-content: space-between;
         margin-bottom: 19px;
-    }
-
-    .tc-form-path-6__input-wrapper>* {
-        flex-grow: 1;
-    }
-
-    .tc-form-path-6__input-wrapper> :first-child {
-        flex-basis: 230px;
-        margin-right: 16px;
-    }
-
-    .tc-form-path-6__input-wrapper> :last-child {
-        flex-basis: 140px;
     }
 
     @media (max-width: 450px) {
         .tc-form-path-6__input-wrapper {
             margin-bottom: 3.6vw;
         }
-
-        .tc-form-path-6__input-wrapper> :first-child {
-            flex-basis: 46vw;
-            margin-right: 3.2vw;
-        }
-
-        .tc-form-path-6__input-wrapper> :last-child {
-            flex-basis: 28vw;
-        }
-    }
-
-    .tc-form-path-6__date-input-wrapper {
-        position: relative;
     }
 
     .tc-form-path-6__date-input.has-error {
@@ -208,6 +176,12 @@
     .tc-output-path-6 {
         position: relative;
         height: 282px;
+    }
+
+    @media (max-width: 450px) {
+        .tc-output-path-6 {
+            height: 56.4vw;
+        }
     }
 
     .tc-output-path-6>* {
@@ -239,10 +213,6 @@
     }
 
     @media (max-width: 450px) {
-        .tc-output-path-6 {
-            height: 142.6vw;
-        }
-
         .tc-output-path-6_decoration-2 {
             width: 40.916vw;
             height: 21.48vw;
@@ -376,12 +346,6 @@
     <form class="tarot-calculator-path-6__form tc-form-path-6" action="#" method="post">
 
         <div class="tc-form-path-6__input-wrapper">
-            <div class="tc-block-path-6">
-                <label class="tc-block-path-6__label">имя</label>
-                <input class="tc-block-path-6__rect tc-block-path-6__rect_input tc-block-path-6__rect_name-input" type="text" name="name"
-                    value="">
-            </div>
-
             <div class="tc-block-path-6 tc-form-path-6__date-input-wrapper">
                 <label class="tc-block-path-6__label">дата рождения</label>
                 <input class="tc-block-path-6__rect tc-block-path-6__rect_input tc-block-path-6__rect_date-input tc-form-path-6__date-input"
@@ -440,7 +404,6 @@
         const positions = document.querySelectorAll('.tc-output-path-6 [data-position]'),
             form = document.querySelector('.tc-form-path-6'),
             dateInput = document.querySelector('.tc-form-path-6 [name=date]'),
-            nameInput = document.querySelector('.tc-form-path-6 [name=name]'),
             convertToRoman = decimal => {
                 const chart = [
                     ['X', 10],
@@ -482,9 +445,7 @@
 
                 for (const key of Object.keys(v)) {
                     if (key != `${pathNum}`) {
-                        console.log(`v[${key}]:`, v[key])
                         v[key] = mod22(v[key] + v[pathNum]);
-                        console.log(`v[${key}]:`, v[key])
                     }
                 }
 
@@ -524,7 +485,6 @@
 
         if (localStorage && localStorage.getItem('tarot_calculator-path-6')) {
             const localStorageValue = JSON.parse(localStorage.getItem('tarot_calculator-path-6'));
-            nameInput.value = localStorageValue.name || '';
             dateInput.value = localStorageValue.date || '';
         }
 
@@ -558,7 +518,6 @@
                 localStorage.removeItem('tarot_calculator-path-6');
                 localStorage.setItem('tarot_calculator-path-6', JSON.stringify({
                     date: dateInput.value,
-                    name: nameInput.value
                 }));
                 recalcPositions(parseInt(d), parseInt(m), parseInt(y), 6);
             }
