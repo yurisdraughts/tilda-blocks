@@ -1,0 +1,517 @@
+<style>
+    .tarot-calculator4 {
+        max-width: 430px;
+        margin: 0 auto;
+        font-family: "Nunito Sans", sans-serif;
+        font-style: normal;
+    }
+
+    .tarot-calculator4,
+    .tarot-calculator4 * {
+        box-sizing: border-box;
+    }
+
+    .tarot-calculator4__form,
+    .tarot-calculator4__output {
+        background-color: white;
+        border-radius: 20px;
+    }
+
+    .tarot-calculator4__form {
+        padding: 12px 22px 25px;
+    }
+
+    @media (max-width: 450px) {
+        .tarot-calculator4 {
+            width: 90vw;
+        }
+
+        .tarot-calculator4__form {
+            padding: 2.4vw 4.4vw 5vw;
+            width: 100%;
+        }
+    }
+
+    .tc4-block__label {
+        display: block;
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 14px;
+        text-align: center;
+        width: 100%;
+        color: #858585;
+    }
+
+    .tc-output .tc4-block__label {
+        font-size: 11.3653px;
+        line-height: 16px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-block__label {
+            font-size: 2vw;
+            line-height: 2.8vw;
+        }
+
+        .tc-output .tc4-block__label {
+            font-size: 2.27306vw;
+            line-height: 3.2vw;
+        }
+    }
+
+    .tc4-block__rect {
+        text-align: center;
+        border-radius: 10px;
+        height: 32px;
+    }
+
+    .tc4-block__rect_input {
+        font-family: "Nunito Sans", sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        border: 1px solid #858585;
+        width: 100%;
+        color: #000000;
+    }
+
+    .tc4-block__rect_date-input {
+        letter-spacing: 0.12em;
+    }
+
+    .tc4-block__rect_button {
+        font-weight: 700;
+        background: #494CFC;
+        color: #FFFFFF;
+        border: none;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-block__rect_button {
+            font-size: 3.2vw;
+            line-height: 4.4vw;
+        }
+    }
+
+    @media (max-width: 450px) {
+        .tc4-block__rect {
+            border-radius: 2vw;
+            height: 6.4vw;
+        }
+    }
+
+    .tc4-block__rect_output {
+        font-weight: 600;
+        font-size: 18.1845px;
+        line-height: 25px;
+        letter-spacing: 0.02em;
+        color: #000000;
+        padding-top: 5.685px;
+        height: 36.37px;
+        border-radius: 11.3653px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-block__rect_output {
+            font-size: 3.6369vw;
+            line-height: 5vw;
+            padding-top: 1.137vw;
+            height: 7.274vw;
+            border-radius: 2.27306vw;
+        }
+    }
+
+    .tc4-block__rect_output_1 {
+        background: #DBD6F9;
+    }
+
+    .tc4-block__rect_output_2 {
+        background: #F6EAFF;
+    }
+
+    .tc4-block__rect_output_3 {
+        background: #DCF0FB;
+    }
+
+    .tc4-block__rect_output_4 {
+        background: #C6F0E6;
+    }
+
+    .tc4-block__rect_output_5 {
+        background: #E0FACF;
+    }
+
+    .tc4-block__rect_output_6 {
+        background: #FFF3B8;
+    }
+
+    .tc4-block_output {
+        width: 56.83px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-block_output {
+            width: 11.366vw;
+        }
+    }
+
+    .tc4-form__input-wrapper {
+        margin-bottom: 19px;
+    }
+
+    .tc4-form__input-wrapper>* {
+        flex-grow: 1;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-form__input-wrapper {
+            margin-bottom: 3.8vw;
+        }
+    }
+
+    .tc4-form__date-input-wrapper {
+        position: relative;
+    }
+
+    .tc4-form__date-input.has-error {
+        border-color: #c64242;
+        color: #c64242;
+        outline-color: #c64242;
+    }
+
+    .tc4-output {
+        position: relative;
+        height: 300px;
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output {
+            height: 60vw;
+            width: 60vw;
+        }
+    }
+
+    .tc4-output>* {
+        position: absolute;
+    }
+
+    .tc4-output_decoration {
+        top: 142px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_decoration {
+            top: 28.4vw;
+        }
+    }
+
+    .tc4-output_decoration {
+        left: 48px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_decoration {
+            left: 9.6vw;
+        }
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_decoration {
+            width: 41.2vw;
+            height: 21.6vw;
+        }
+    }
+
+    .tc4-output_2 {
+        left: 121.87px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_2 {
+            left: 24.374vw;
+        }
+    }
+
+    .tc4-output_6 {
+        left: 121.87px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_6 {
+            left: 24.374vw;
+        }
+    }
+
+    .tc4-output_4 {
+        left: 86.64px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_4 {
+            left: 17.328vw;
+        }
+    }
+
+    .tc4-output_5 {
+        left: 157.11px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_5 {
+            left: 31.422vw;
+        }
+    }
+
+    .tc4-output_1 {
+        left: 51.41px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_1 {
+            left: 10.282vw;
+        }
+    }
+
+    .tc4-output_3 {
+        left: 192.34px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_3 {
+            left: 38.468vw;
+        }
+    }
+
+    .tc4-output_7 {
+        left: 300.61px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_7 {
+            left: 60.122vw;
+        }
+    }
+
+    .tc4-output_1 {
+        top: 52px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_1 {
+            top: 10.4vw;
+        }
+    }
+
+    .tc4-output_2 {
+        top: 52px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_2 {
+            top: 10.4vw;
+        }
+    }
+
+    .tc4-output_3 {
+        top: 52px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_3 {
+            top: 10.4vw;
+        }
+    }
+
+    .tc4-output_4 {
+        top: 113.37px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_4 {
+            top: 22.674vw;
+        }
+    }
+
+    .tc4-output_5 {
+        top: 113.37px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_5 {
+            top: 22.674vw;
+        }
+    }
+
+    .tc4-output_6 {
+        top: 174.75px;
+    }
+
+    @media (max-width: 450px) {
+        .tc4-output_6 {
+            top: 34.95vw;
+        }
+    }
+</style>
+
+<div class="tarot-calculator4">
+    <form class="tarot-calculator4__form tc4-form" action="#" method="post">
+
+        <div class="tc4-form__input-wrapper">
+            <div class="tc4-block tc4-form__date-input-wrapper">
+                <label class="tc4-block__label">дата рождения</label>
+                <input
+                    class="tc4-block__rect tc4-block__rect_input tc4-block__rect_date-input tc4-form__date-input tc4-form__date-input_1"
+                    type="text" name="date" inputmode="numeric">
+            </div>
+        </div>
+
+        <div class="tc4-block">
+            <input class="tc4-block__rect tc4-block__rect_input tc4-block__rect_button" type="submit"
+                value="рассчитать">
+        </div>
+    </form>
+</div>
+
+<script>
+    "use strict";
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const positionsArray = (() => {
+            let positions = [];
+            for (let i = 0; i < 22; i++) {
+                positions[i] = document.querySelectorAll(`.tarot-calculator4__output_${i + 1} [data-position]`);
+            }
+            return positions;
+        })(),
+            form = document.querySelector('.tc4-form'),
+            dateInput = document.querySelector('.tc4-form [name=date]'),
+            convertToRoman = decimal => {
+                const chart = [
+                    ['X', 10],
+                    ['IX', 9],
+                    ['V', 5],
+                    ['IV', 4],
+                    ['I', 1]
+                ];
+
+                return chart.reduce((acc, numeral) => {
+                    const [roman, remainder] = acc;
+                    const [letter, value] = numeral;
+                    return [
+                        roman + letter.repeat(remainder / value),
+                        remainder % value
+                    ];
+                }, ['', decimal])[0];
+
+            },
+            recalcPositions = (d, m, y, increment) => {
+                const v = {},
+                    digitSum = (...vals) => (
+                        vals
+                            .flatMap(val => val.toString().split(""))
+                            .reduce((a, b) => a + parseInt(b), 0)
+                    ),
+                    recursiveSum = (...vals) => {
+                        const result = digitSum(...vals);
+                        return result < 10 ? result : recursiveSum(result);
+                    },
+                    mod22 = val => val % 22 !== 0 ? val % 22 : 22;
+
+                v['1'] = mod22(d);
+                v['2'] = m;
+                v['3'] = mod22(digitSum(y));
+                v['4'] = mod22(v['1'] + v['2']);
+                v['5'] = mod22(v['2'] + v['3']);
+                v['6'] = mod22(v['4'] + v['5']);
+
+                for (const key of Object.keys(v)) {
+                    v[key] = mod22(v[key] + increment + 1);
+                }
+
+                if (!positionsArray[increment]) return;
+                for (let pos of positionsArray[increment]) {
+                    pos.innerHTML = convertToRoman(v[pos.dataset.position]);
+                }
+            },
+            // Source: https://stackoverflow.com/a/55010378
+            pattern = "__.__.____",
+            dateInputMask = el => {
+                const prev = [1, 2, 2, 4, 5, 5, 7, 8, 9, 10],
+                    accept = /\d/g,
+                    clean = input => {
+                        input = input.match(accept) || [];
+                        return Array.from(pattern, c =>
+                            input[0] === c || c === "_" ? input.shift() || c : c
+                        );
+                    },
+                    format = () => {
+                        const [i, j] = [el.selectionStart, el.selectionEnd].map(i => {
+                            i = clean(el.value.slice(0, i)).findIndex(c => c === "_");
+                            return i < 0 ? prev[prev.length - 1] : back ? prev[i - 1] || 0 : i;
+                        });
+                        el.value = clean(el.value).join('');
+                        el.setSelectionRange(i, j);
+                        back = false;
+                    };
+                let back = false;
+
+                el.addEventListener("keydown", (e) => back = e.key === "Backspace");
+                el.addEventListener("input", format);
+                el.addEventListener("focus", format);
+                el.addEventListener("blur", () => el.value === pattern && (el.value = ""));
+            };
+
+        dateInputMask(dateInput);
+
+        if (localStorage && localStorage.getItem('tarot_calculator4')) {
+            const localStorageValue = JSON.parse(localStorage.getItem('tarot_calculator4'));
+            dateInput.value = localStorageValue.date || '';
+        }
+
+        dateInput.addEventListener('keydown', event => {
+            event.target.classList.remove('has-error');
+        });
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            dateInput.classList.remove('has-error');
+            let hasError = false;
+
+            if (dateInput.value === '' || dateInput.value === pattern) {
+                return;
+            }
+
+            const date = dateInput.value.split('.').map(str => parseInt(str)),
+                [d, m, y] = date,
+                maxD = (new Date(y, m, 0)).getDate();
+
+            if (
+                d < 1 || d > maxD || isNaN(d)
+                || m < 1 || m > 12 || isNaN(m)
+                || y < 1500 || y > 2050 || isNaN(y)
+            ) {
+                dateInput.classList.add('has-error');
+                hasError = true;
+            }
+
+            if (!hasError) {
+                localStorage.removeItem('tarot_calculator4');
+                localStorage.setItem('tarot_calculator4', JSON.stringify({
+                    date: dateInput.value,
+                }));
+                for (let i = 0; i < 22; i++) {
+                    recalcPositions(parseInt(d), parseInt(m), parseInt(y), i);
+                }
+            }
+        });
+
+        form.dispatchEvent(new FormDataEvent('submit', {
+            formData: new FormData()
+        }));
+    });
+</script>
