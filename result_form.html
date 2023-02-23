@@ -387,7 +387,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const positionsArray = (() => {
             let positions = [];
-            for (let i = 0; i < 22; i++) {
+            for (let i = 0; i < 21; i++) {
                 positions[i] = document.querySelectorAll(`.tarot-calculator4__output_${i + 1} [data-position]`);
             }
             return positions;
@@ -508,7 +508,7 @@
                 localStorage.setItem('tarot_calculator4', JSON.stringify({
                     date: dateInput.value,
                 }));
-                for (let i = 0; i < 22; i++) {
+                for (let i = 0; i < 21; i++) {
                     recalcPositions(parseInt(d), parseInt(m), parseInt(y), i);
                 }
             }
