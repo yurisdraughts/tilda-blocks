@@ -414,6 +414,7 @@
 
             },
             recalcPositions = (d, m, y, increment) => {
+                if (!positionsArray[increment]) return;
                 const v = {},
                     digitSum = (...vals) => (
                         vals
@@ -432,12 +433,9 @@
                 v['4'] = mod22(v['1'] + v['2']);
                 v['5'] = mod22(v['2'] + v['3']);
                 v['6'] = mod22(v['4'] + v['5']);
-
                 for (const key of Object.keys(v)) {
                     v[key] = mod22(v[key] + increment + 1);
                 }
-
-                if (!positionsArray[increment]) return;
                 for (let pos of positionsArray[increment]) {
                     pos.innerHTML = convertToRoman(v[pos.dataset.position]);
                 }
