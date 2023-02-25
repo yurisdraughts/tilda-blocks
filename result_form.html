@@ -513,7 +513,8 @@
         });
 
         form.dispatchEvent(new FormDataEvent('submit', {
-            formData: new FormData()
+            formData: new FormData(),
+            cancelable: true
         }));
     });
 </script>
