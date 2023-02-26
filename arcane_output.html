@@ -1,0 +1,872 @@
+<style>
+    body {
+        background-color: #000;
+    }
+
+    .arcane-calculator {
+        margin: 0 auto;
+        font-family: "Nunito Sans", sans-serif;
+        font-style: normal;
+        border-radius: 20px;
+        background: white;
+    }
+
+    .arcane-calculator,
+    .arcane-calculator * {
+        box-sizing: border-box;
+    }
+
+    .arcane-calculator__form {
+        max-width: 430px;
+    }
+
+    @media (max-width: 480px) {
+        .arcane-calculator__form {
+            width: 90vw;
+        }
+    }
+
+    .arcane-calculator__result {
+        max-width: 1200px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arcane-calculator__result {
+            width: fit-content;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arcane-calculator__result {
+            width: 90vw;
+        }
+    }
+
+    .arc-block__label {
+        display: block;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 12px;
+        color: black;
+    }
+
+    @media (max-width: 480px) {
+        .arc-block__label {
+            font-size: 2.25vw;
+            line-height: 2.25vw;
+        }
+    }
+
+    .arc-block__hint {
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 10px;
+        color: #858585;
+    }
+
+    @media (max-width: 480px) {
+        .arc-block__hint {
+            font-size: 1.875vw;
+            line-height: 1.875vw;
+        }
+    }
+
+    .arc-block__rect {
+        text-align: center;
+        border-radius: 10px;
+        height: 32px;
+    }
+
+    @media (max-width: 480px) {
+        .arc-block__rect {
+            border-radius: 1.875vw;
+            height: 6vw;
+        }
+    }
+
+    .arc-block__rect_input {
+        font-family: "Nunito Sans", sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        border: 1px solid #858585;
+        color: #000000;
+    }
+
+    .arc-block__rect_input.has-error {
+        border-color: #c64242;
+        color: #c64242;
+        outline-color: #c64242;
+    }
+
+    .arc-block__rect_name-input {
+        letter-spacing: 0.01em;
+    }
+
+    .arc-block__rect_date-input {
+        letter-spacing: 0.12em;
+    }
+
+    .arc-block__rect_button {
+        font-weight: 700;
+        background: #494CFC;
+        color: #FFFFFF;
+        border: none;
+        cursor: pointer;
+    }
+
+    @media (max-width: 480px) {
+        .arc-block__rect_button {
+            font-size: 3vw;
+            line-height: 4.125vw;
+        }
+    }
+
+    .arc-form {
+        padding: 29px 27px 30px 17px;
+    }
+
+    @media (max-width: 480px) {
+        .arc-form {
+            padding: 5.4375vw 5.0625vw 5.625vw 3.1875vw;
+            width: 90vw;
+        }
+    }
+
+    .arc-form__input-wrapper {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        margin-bottom: 18px;
+    }
+
+    .arc-form__input-wrapper> :first-child {
+        flex-basis: 110px;
+        margin-right: 15px;
+        text-align: right;
+    }
+
+    .arc-form__input-wrapper> :last-child {
+        flex-basis: 261px;
+        max-width: 67.3575129534%;
+    }
+
+    @media (max-width: 480px) {
+        .arc-form__input-wrapper {
+            margin-bottom: 3.375vw;
+        }
+
+        .arc-form__input-wrapper> :first-child {
+            margin-right: 2.8125vw;
+        }
+    }
+
+    .arc-output {
+        width: 100%;
+    }
+
+    @media (max-width: 480px) {
+        .arc-output {
+            width: 100%;
+        }
+    }
+
+    .arc-output__wrapper {
+        border-radius: 38px;
+        padding: 20px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__wrapper {
+            border-radius: 2.85vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__wrapper {
+            border-radius: 15.2px;
+        }
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__wrapper {
+            padding: 1.5vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__wrapper {
+            padding: 8px;
+        }
+    }
+
+    .arc-output__level {
+        background: #F8F8F8;
+    }
+
+    .arc-output__level-name {
+        font-size: 14.2456px;
+        line-height: 19px;
+        padding: 0 12.21px;
+        width: 177.05px;
+        text-align: right;
+        color: #858585;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__level-name {
+            font-size: 1.06842vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__level-name {
+            font-size: 5.69824px;
+        }
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__level-name {
+            line-height: 1.425vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__level-name {
+            line-height: 7.6px;
+        }
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__level-name {
+            width: 13.27875vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__level-name {
+            width: 70.82px;
+        }
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__level-name {
+            padding: 0 0.91575vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__level-name {
+            padding: 0 4.884px;
+        }
+    }
+
+    .arc-output__row {
+        height: 42.74px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__row {
+            height: 3.2055vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__row {
+            height: 17.096px;
+        }
+    }
+
+    .arc-output__cell {
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        border: 1.02px solid #D8D8D8;
+    }
+
+    .arc-output__cell_square {
+        font-size: 13.3991px;
+        line-height: 18px;
+        width: 42.74px;
+        min-width: 42.74px;
+        text-align: center;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__cell_square {
+            font-size: 1.0049325vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__cell_square {
+            font-size: 5.35964px;
+        }
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__cell_square {
+            line-height: 1.35vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__cell_square {
+            line-height: 7.2px;
+        }
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__cell_square {
+            width: 3.2055vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__cell_square {
+            width: 17.096px;
+        }
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__cell_square {
+            min-width: 3.2055vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__cell_square {
+            min-width: 17.096px;
+        }
+    }
+
+    .arc-output__cell_result {
+        background-color: #fff;
+    }
+
+    .arc-output__table {
+        border: 1.02px solid #D8D8D8;
+        border-collapse: collapse;
+        border-radius: 20.3509px;
+        display: flex;
+        overflow-x: hidden;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__table {
+            border-radius: 1.5263175vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__table {
+            border-radius: 8.14036px;
+        }
+    }
+
+    .arc-output__table tr:first-child th {
+        border-top: none;
+    }
+
+    .arc-output__table tr:last-child td,
+    .arc-output__table tr:last-child th {
+        border-bottom: none;
+    }
+
+    .arc-output__table td:first-child,
+    .arc-output__table th:first-child {
+        border-left: none;
+    }
+
+    .arc-output__left {
+        width: 219.79px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__left {
+            width: 16.48425vw;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__left {
+            width: 87.916px;
+        }
+    }
+
+    .arc-output__right {
+        width: calc(100% - 219.79px);
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .arc-output__right {
+            width: calc(100% - 16.48425vw);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .arc-output__right {
+            width: calc(100% - 87.916px);
+        }
+    }
+
+    .arc-output__right::-webkit-scrollbar {
+        display: none;
+    }
+
+    .arc-output__right td:last-child,
+    .arc-output__right th:last-child {
+        border-right: none;
+    }
+
+    .arc-js_pink {
+        background-color: #FFE9EE;
+    }
+
+    .arc-js_blue {
+        background-color: #D0EDFD;
+    }
+
+    .arc-js_green {
+        background-color: #C2F4A1;
+    }
+
+    .arc-js_orange {
+        background-color: #FFB800;
+    }
+
+    .arc-js_yellow {
+        background-color: #FFEC42;
+    }
+</style>
+
+<div class="arcane-calculator arcane-calculator__result arc-output__wrapper">
+    <div class="arc-output">
+        <table class="arc-output__table">
+            <tbody class="arc-output__left">
+                <tr class="arc-output__row">
+                    <th class="arc-output__cell arc-output__level arc-output__level-name" data-row="0"></th>
+                    <th class="arc-output__cell arc-output__cell_square arc-output__level" data-row="0">
+
+                    </th>
+                </tr>
+                <tr class="arc-output__row">
+                    <th class="arc-output__cell arc-output__level arc-output__level-name" data-row="1">событийный</th>
+                    <th class="arc-output__cell arc-output__cell_square arc-output__level" data-row="1">I
+
+                    </th>
+                </tr>
+                <tr class="arc-output__row">
+                    <th class="arc-output__cell arc-output__level arc-output__level-name" data-row="2">психический</th>
+                    <th class="arc-output__cell arc-output__cell_square arc-output__level" data-row="2">II
+
+                    </th>
+                </tr>
+                <tr class="arc-output__row">
+                    <th class="arc-output__cell arc-output__level arc-output__level-name" data-row="3">кармический</th>
+                    <th class="arc-output__cell arc-output__cell_square arc-output__level" data-row="3">III
+
+                    </th>
+                </tr>
+                <tr class="arc-output__row">
+                    <th class="arc-output__cell arc-output__level arc-output__level-name" data-row="4">духовный</th>
+                    <th class="arc-output__cell arc-output__cell_square arc-output__level" data-row="4">IV
+
+                    </th>
+                </tr>
+                <tr class="arc-output__row">
+                    <th class="arc-output__cell arc-output__level arc-output__level-name" data-row="5">материальный</th>
+                    <th class="arc-output__cell arc-output__cell_square arc-output__level" data-row="5">V
+
+                    </th>
+                </tr>
+                <tr class="arc-output__row">
+                    <th class="arc-output__cell arc-output__level arc-output__level-name" data-row="6">эмоциональный
+                    </th>
+                    <th class="arc-output__cell arc-output__cell_square arc-output__level" data-row="6">VI
+
+                    </th>
+                </tr>
+                <tr class="arc-output__row">
+                    <th class="arc-output__cell arc-output__level arc-output__level-name" data-row="7">уровень Творца
+                    </th>
+                    <th class="arc-output__cell arc-output__cell_square arc-output__level" data-row="7">VII
+
+                    </th>
+                </tr>
+            </tbody>
+            <tbody class="arc-output__right">
+                <tr class="arc-output__row">
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="22"
+                        data-row="0">XXII</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="1"
+                        data-row="0">I</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="2"
+                        data-row="0">II</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="3"
+                        data-row="0">III</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="4"
+                        data-row="0">IV</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="5"
+                        data-row="0">V</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="6"
+                        data-row="0">VI</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="7"
+                        data-row="0">VII</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="8"
+                        data-row="0">VIII</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="9"
+                        data-row="0">IX</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="10"
+                        data-row="0">X</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="11"
+                        data-row="0">XI</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="12"
+                        data-row="0">XII</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="13"
+                        data-row="0">XIII</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="14"
+                        data-row="0">XIV</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="15"
+                        data-row="0">XV</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="16"
+                        data-row="0">XVI</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="17"
+                        data-row="0">XVII</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="18"
+                        data-row="0">XVIII</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="19"
+                        data-row="0">XIX</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="20"
+                        data-row="0">XX</th>
+                    <th class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="21"
+                        data-row="0">XXI</th>
+                </tr>
+                <tr class="arc-output__row">
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="22"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="1"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="2"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="3"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="4"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="5"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="6"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="7"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="8"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="9"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="10"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="11"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="12"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="13"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="14"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="15"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="16"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="17"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="18"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="19"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="20"
+                        data-row="1"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="21"
+                        data-row="1"></td>
+                </tr>
+                <tr class="arc-output__row">
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="22"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="1"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="2"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="3"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="4"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="5"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="6"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="7"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="8"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="9"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="10"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="11"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="12"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="13"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="14"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="15"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="16"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="17"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="18"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="19"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="20"
+                        data-row="2"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="21"
+                        data-row="2"></td>
+                </tr>
+                <tr class="arc-output__row">
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="22"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="1"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="2"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="3"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="4"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="5"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="6"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="7"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="8"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="9"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="10"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="11"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="12"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="13"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="14"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="15"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="16"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="17"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="18"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="19"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="20"
+                        data-row="3"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="21"
+                        data-row="3"></td>
+                </tr>
+                <tr class="arc-output__row">
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="22"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="1"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="2"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="3"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="4"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="5"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="6"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="7"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="8"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="9"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="10"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="11"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="12"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="13"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="14"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="15"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="16"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="17"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="18"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="19"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="20"
+                        data-row="4"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="21"
+                        data-row="4"></td>
+                </tr>
+                <tr class="arc-output__row">
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="22"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="1"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="2"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="3"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="4"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="5"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="6"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="7"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="8"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="9"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="10"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="11"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="12"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="13"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="14"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="15"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="16"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="17"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="18"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="19"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="20"
+                        data-row="5"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="21"
+                        data-row="5"></td>
+                </tr>
+                <tr class="arc-output__row">
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="22"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="1"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="2"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="3"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="4"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="5"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="6"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="7"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="8"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="9"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="10"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="11"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="12"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="13"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="14"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="15"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="16"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="17"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="18"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="19"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="20"
+                        data-row="6"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="21"
+                        data-row="6"></td>
+                </tr>
+                <tr class="arc-output__row">
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="22"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="1"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="2"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="3"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="4"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="5"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="6"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="7"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="8"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="9"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="10"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="11"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="12"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="13"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="14"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="15"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="16"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="17"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="18"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="19"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="20"
+                        data-row="7"></td>
+                    <td class="arc-output__cell arc-output__cell_result arc-output__cell_square" data-column="21"
+                        data-row="7"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

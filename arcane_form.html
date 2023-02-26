@@ -1,0 +1,441 @@
+<div class="arcane-calculator arcane-calculator__form">
+    <form class="arc-form" action="#" method="post">
+        <div class="arc-block arc-form__input-wrapper">
+            <label class="arc-block__label">дата рождения</label>
+            <input class="arc-block__rect arc-block__rect_input arc-block__rect_date-input arc-form__date-input"
+                type="text" name="date" inputmode="numeric">
+        </div>
+        <div class="arc-block arc-form__input-wrapper">
+            <label class="arc-block__label">имя
+            </label>
+            <input class="arc-block__rect arc-block__rect_input arc-block__rect_name-input" type="text"
+                name="firstName">
+        </div>
+        <div class="arc-block arc-form__input-wrapper">
+            <label class="arc-block__label">фамилия
+            </label>
+            <input class="arc-block__rect arc-block__rect_input arc-block__rect_name-input" type="text" name="lastName">
+        </div>
+        <div class="arc-block arc-form__input-wrapper">
+            <label class="arc-block__label">фамилия<br>при рождении
+            </label>
+            <input class="arc-block__rect arc-block__rect_input arc-block__rect_name-input" type="text"
+                name="maidenName">
+        </div>
+        <div class="arc-block arc-form__input-wrapper">
+            <label class="arc-block__label">отчество
+            </label>
+            <input class="arc-block__rect arc-block__rect_input arc-block__rect_name-input" type="text"
+                name="patronymic">
+        </div>
+        <div class="arc-block arc-form__input-wrapper">
+            <label class="arc-block__label">имя отца
+            </label>
+            <input class="arc-block__rect arc-block__rect_input arc-block__rect_name-input" type="text"
+                name="fathersName">
+        </div>
+        <div class="arc-block arc-form__input-wrapper">
+            <label class="arc-block__label">имя матери
+            </label>
+            <input class="arc-block__rect arc-block__rect_input arc-block__rect_name-input" type="text"
+                name="mothersName">
+        </div>
+        <div class="arc-block arc-form__input-wrapper">
+            <label class="arc-block__label">место рождения<br><span class="arc-block__hint">как в свидетельстве <br> о
+                    рождении</span>
+            </label>
+            <input class="arc-block__rect arc-block__rect_input arc-block__rect_name-input" type="text"
+                name="placeOfBirth">
+        </div>
+        <div class="arc-block arc-form__input-wrapper">
+            <label class="arc-block__label">страна рождения<br><span class="arc-block__hint">как в свидетельстве <br> о
+                    рождении</span>
+            </label>
+            <input class="arc-block__rect arc-block__rect_input arc-block__rect_name-input" type="text"
+                name="countryOfBirth">
+        </div>
+        <div class="arc-block arc-form__input-wrapper">
+            <label class="arc-block__label">церковное имя<br><span class="arc-block__hint">если есть и/или если <br>
+                    отличается</span>
+            </label>
+            <input class="arc-block__rect arc-block__rect_input arc-block__rect_name-input" type="text"
+                name="religiousName">
+        </div>
+        <div class="arc-block arc-form__input-wrapper">
+            <div> </div>
+            <input class="arc-block__rect arc-block__rect_input arc-block__rect_button" type="submit"
+                value="рассчитать">
+        </div>
+    </form>
+</div>
+
+<script>
+    "use strict";
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const
+            form = document.querySelector('.arc-form'),
+            dateInput = document.querySelector('.arc-form [name="date"]'),
+            textInputs = document.querySelectorAll('.arc-form [name]:not([name="date"])'),
+            getTextInput = (nameAttr) => {
+                return [...textInputs]
+                    .filter(el => el.getAttribute('name') == nameAttr)
+                    .reduce((_, el) => el, null);
+            },
+            fullRows = (() => {
+                let rows = [];
+                for (let i = 1; i <= 7; i++) {
+                    rows.push(document.querySelectorAll(`[data-row="${i}"]`))
+                }
+                return rows;
+            })(),
+            fullColumns = (() => {
+                let columns = [];
+                for (let i = 1; i <= 22; i++) {
+                    columns.push(document.querySelectorAll(`[data-column="${i}"]`))
+                }
+                return columns;
+            })(),
+            rows = (() => {
+                let rows = [];
+                for (let i = 1; i <= 7; i++) {
+                    rows.push(document.querySelectorAll(`[data-row="${i}"]:not(th)`))
+                }
+                return rows;
+            })(),
+            columns = (() => {
+                let columns = [];
+                for (let i = 1; i <= 22; i++) {
+                    columns.push(document.querySelectorAll(`[data-column="${i}"]:not(th)`))
+                }
+                return columns;
+            })(),
+            cells = (() => {
+                return document.querySelectorAll('.arc-output__cell_result:not(th)');
+            })(),
+            digitSum = (...vals) => (
+                vals
+                    .flatMap(val => val.toString().split(""))
+                    .reduce((a, b) => a + parseInt(b), 0)
+            ),
+            mod22 = val => val % 22 !== 0 ? val % 22 : 22,
+            abs22 = val => val === 0 ? 22 : Math.abs(val),
+            lettersToNumsChart = {
+                'а': 22,
+                'б': 1, 'в': 2, 'г': 3, 'ч': 3, 'д': 4, 'е': 5, 'ё': 5, 'э': 5,
+                'ж': 6, 'з': 6, 'и': 7, 'й': 7, 'к': 8, 'л': 9, 'м': 10,
+                'н': 11, 'о': 12, 'п': 13, 'р': 14, 'с': 15, 'ц': 15,
+                'т': 16, 'у': 17, 'ф': 18, 'х': 18, 'ш': 19, 'щ': 19, 'ъ': 20, 'ы': 20, 'ь': 20,
+                'ю': 21, 'я': 21,
+                'a': 22,
+                'b': 1, 'c': 2, 'e': 4, 'f': 5, 'g': 6, 'h': 7, 'i': 8, 'j': 9, 'k': 10,
+                'l': 11, 'm': 12, 'n': 13, 'o': 14, 'u': 14, 'q': 14, 'p': 15,
+                'r': 16, 's': 17, 't': 18, 'w': 19, 'v': 19, 'x': 20, 'y': 20,
+                'z': 21,
+                'ą': 21, 'ć': 2, 'ę': 4, 'ł': 11, 'ń': 13, 'ó': 14, 'ś': 17, 'ź': 21, 'ż': 21
+            },
+            convertLettersToNums = string => {
+                const nums = string
+                    .toLowerCase()
+                    .split('')
+                    .filter(char => lettersToNumsChart[char])
+                    .map(char => lettersToNumsChart[char]);
+                nums.push(
+                    mod22(
+                        nums.reduce((acc, num) => {
+                            return acc += num;
+                        }, 0)
+                    )
+                );
+                return nums;
+            },
+            calcInitPositions = (d, m, y) => {
+                const pos = {};
+                pos[1] = mod22(d);
+                pos[2] = m;
+                pos[3] = mod22(digitSum(y));
+                pos[4] = mod22(pos[1] + pos[2]);
+                pos[5] = mod22(pos[2] + pos[3]);
+                pos[6] = mod22(pos[4] + pos[5]);
+                return pos;
+            },
+            calcPositions = (d, m, y) => {
+                const pos = calcInitPositions(d, m, y);
+                pos[7] = mod22(pos[1] + pos[5]);
+                pos[8] = mod22(pos[2] + pos[6]);
+                pos[9] = abs22(pos[1] - pos[2]);
+                pos[10] = abs22(pos[2] - pos[3]);
+                pos[11] = abs22(pos[9] - pos[10]);
+                pos[12] = mod22(pos[7] + pos[8]);
+                pos[13] = mod22(pos[1] + pos[4] + pos[6]);
+                pos[14] = mod22(pos[3] + pos[5] + pos[6]);
+                pos[15] = mod22(abs22(pos[9] + pos[10] + pos[11] - pos[7]));
+                pos[16] = mod22(pos[1] + pos[3] + pos[4] + pos[5]);
+                pos[17] = mod22(pos[11] + pos[6]);
+                pos[18] = mod22(pos[11] + pos[8]);
+                pos[19] = mod22(pos[4] + pos[6]);
+                pos[20] = mod22(pos[5] + pos[6] + pos[7]);
+                pos[21] = mod22(pos[1] + pos[2] + pos[3] + pos[4] + pos[5] + pos[6]);
+                pos[30] = mod22(pos[4] + pos[5] + pos[6] + pos[12]);
+                pos['A'] = mod22(pos[1] + pos[4]);
+                pos['B'] = mod22(pos[4] + pos[2]);
+                pos['C'] = mod22(pos[5] + pos[2]);
+                pos['D'] = mod22(pos[3] + pos[5]);
+                pos['E'] = mod22(pos[4] + pos[6]);
+                pos['F'] = mod22(pos[6] + pos[5]);
+                pos['G1'] = mod22(pos['C'] + pos['D']);
+                pos['G2'] = mod22(pos['B'] + pos['F']);
+                pos['H'] = mod22(pos['A'] + pos['E']);
+                return pos;
+            },
+            calcPrograms = (d, m, y) => {
+                const base = calcInitPositions(d, m, y),
+                    prog = {};
+                for (let i = 1; i <= 21; i++) {
+                    prog[i] = Object.values(base).map(val => mod22(val + i));
+                }
+                return prog;
+            },
+            calcLevels = (d, m, y) => {
+                const level = {},
+                    result = {},
+                    calcNameValue = (nameAttr) => {
+                        const el = getTextInput(nameAttr);
+                        if (el.value === '') return [0];
+                        return convertLettersToNums(el.value);
+                    },
+                    firstName = calcNameValue('firstName'),
+                    lastName = calcNameValue('lastName'),
+                    patronymic = calcNameValue('patronymic'),
+                    fathersName = calcNameValue('fathersName'),
+                    mothersName = calcNameValue('mothersName'),
+                    placeOfBirth = calcNameValue('placeOfBirth'),
+                    countryOfBirth = calcNameValue('countryOfBirth'),
+                    religiousName = calcNameValue('religiousName');
+                let maidenName;
+                if (getTextInput('lastName').value !== getTextInput('maidenName').value) {
+                    maidenName = calcNameValue('maidenName')
+                } else {
+                    maidenName = [0];
+                }
+                const pos = calcPositions(d, m, y),
+                    prog = calcPrograms(d, m, y),
+                    calcLevel = (arr) => {
+                        const level = {};
+                        for (let i = 1; i <= 22; i++) {
+                            let counter = 0;
+                            let copy = arr.slice();
+                            while (copy.includes(i)) {
+                                counter++;
+                                copy = copy.slice(copy.indexOf(i) + 1);
+                            }
+                            level[i] = counter;
+                        }
+                        return level;
+                    };
+
+                level[1] = [
+                    pos[1], pos[2], pos[3], pos[13], pos[21], pos[30],
+                    pos['C'], pos['E'], pos['F'],
+                    ...lastName, ...religiousName, ...patronymic,
+                    ...prog[14], ...prog[1], ...prog[19]
+                ];
+                level[2] = [
+                    pos[4], pos[5], pos[6], pos[12], pos[14],
+                    pos['A'], pos['D'], pos['H'],
+                    ...firstName,
+                    ...prog[8], ...prog[11], ...prog[18]
+                ];
+                level[3] = [
+                    pos[9], pos[10], pos[11], pos[15], pos[17], pos[18],
+                    ...maidenName, ...fathersName, ...mothersName,
+                    ...prog[10], ...prog[20]
+                ];
+                level[4] = [
+                    pos[7], pos[8], pos[20],
+                    ...prog[9], ...prog[12], ...prog[16]
+                ];
+                level[5] = [
+                    pos['B'],
+                    ...countryOfBirth,
+                    ...prog[3], ...prog[4], ...prog[7], ...prog[13]
+                ];
+                level[6] = [
+                    pos[16], pos[19],
+                    ...placeOfBirth,
+                    ...prog[6], ...prog[15], ...prog[21]
+                ];
+                level[7] = [
+                    pos['G1'], pos['G2'],
+                    ...prog[2], ...prog[5], ...prog[17]
+                ];
+
+                for (let i = 1; i <= 7; i++) {
+                    result[i] = calcLevel(level[i]);
+                }
+                return result;
+            },
+            renderData = (d, m, y) => {
+                const levels = calcLevels(d, m, y),
+                    removeColor = () => {
+                        (new Set([...fullColumns, ...fullRows])).forEach(col => {
+                            col.forEach(el => {
+                                el.classList.remove(
+                                    'arc-js_pink', 'arc-js_blue',
+                                    'arc-js_green', 'arc-js_orange', 'arc-js_yellow'
+                                );
+                            });
+                        });
+                    },
+                    addColor0 = (elements, fullAxis) => {
+                        [...elements].map(axis => [...axis].map(el => el.innerHTML))
+                            .forEach((axisValues, i) => {
+                                if (!axisValues.includes("0")) {
+                                    fullAxis[i].forEach(el => {
+                                        el.classList.add('arc-js_green');
+                                    })
+                                } else if (
+                                    fullAxis === fullColumns
+                                    && !axisValues.slice(axisValues.indexOf("0") + 1).includes("0")
+                                ) {
+                                    fullAxis[i].forEach(el => {
+                                        if (el.innerHTML === '0') el.classList.add('arc-js_pink');
+                                        else el.classList.add('arc-js_blue');
+                                    });
+                                } else {
+                                    fullAxis[i].forEach(el => {
+                                        if (el.innerHTML === '0') el.classList.add('arc-js_pink');
+                                    });
+                                }
+                            });
+                    },
+                    addColorMax = () => {
+                        const values = Array.from(new Set([...cells].map(cell => cell.innerHTML)))
+                            .map(value => parseInt(value));
+                        let max = values[0];
+                        for (let value of values) {
+                            if (value > max) {
+                                max = value;
+                            }
+                        }
+                        cells.forEach(cell => {
+                            if (cell.innerHTML === max.toString()) {
+                                cell.classList.add('arc-js_orange');
+                            }
+                        });
+                        cells.forEach(cell => {
+                            if (cell.innerHTML === (max - 1).toString()) {
+                                cell.classList.add('arc-js_yellow');
+                            }
+                        });
+                    };
+                removeColor();
+                for (let i = 0; i < 7; i++) {
+                    rows[i].forEach((el, col) => {
+                        el.innerHTML = levels[i + 1][col === 0 ? 22 : col];
+                    });
+                }
+                addColor0(rows, fullRows);
+                addColor0(columns, fullColumns);
+                addColorMax();
+            },
+            // Source: https://stackoverflow.com/a/55010378
+            pattern = "__.__.____",
+            dateInputMask = el => {
+                const prev = [1, 2, 2, 4, 5, 5, 7, 8, 9, 10],
+                    accept = /\d/g,
+                    clean = input => {
+                        input = input.match(accept) || [];
+                        return Array.from(pattern, c =>
+                            input[0] === c || c === "_" ? input.shift() || c : c
+                        );
+                    },
+                    format = () => {
+                        const [i, j] = [el.selectionStart, el.selectionEnd].map(i => {
+                            i = clean(el.value.slice(0, i)).findIndex(c => c === "_");
+                            return i < 0 ? prev[prev.length - 1] : back ? prev[i - 1] || 0 : i;
+                        });
+                        el.value = clean(el.value).join('');
+                        el.setSelectionRange(i, j);
+                        back = false;
+                    };
+                let back = false;
+
+                el.addEventListener("keydown", (e) => back = e.key === "Backspace");
+                el.addEventListener("input", format);
+                el.addEventListener("focus", format);
+                el.addEventListener("blur", () => el.value === pattern && (el.value = ""));
+            };
+
+        dateInputMask(dateInput);
+
+        if (localStorage && localStorage.getItem('arcane_calculator')) {
+            const localStorageValue = JSON.parse(localStorage.getItem('arcane_calculator'));
+            dateInput.value = localStorageValue.date || '';
+            for (let i = 0; i < textInputs.length; i++) {
+                textInputs[i].value = localStorageValue[textInputs[i].getAttribute('name')] || '';
+            }
+        }
+
+        dateInput.addEventListener('keydown', event => {
+            event.target.classList.remove('has-error');
+        });
+        textInputs.forEach(el => {
+            el.addEventListener('keydown', event => {
+                event.target.classList.remove('has-error');
+            });
+        });
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            dateInput.classList.remove('has-error');
+            textInputs.forEach(el => {
+                el.classList.remove('has-error');
+            })
+            let hasError = false;
+
+            if (dateInput.value === '' || dateInput.value === pattern) {
+                hasError = true;
+            }
+            if (hasError) return;
+
+            const date = dateInput.value.split('.').map(str => parseInt(str)),
+                [d, m, y] = date,
+                maxD = (new Date(y, m, 0)).getDate();
+
+            if (
+                d < 1 || d > maxD || isNaN(d)
+                || m < 1 || m > 12 || isNaN(m)
+                || y < 1500 || y > 2050 || isNaN(y)
+            ) {
+                dateInput.classList.add('has-error');
+                hasError = true;
+            }
+            for (let i = 0; i < textInputs.length; i++) {
+                if (textInputs[i].getAttribute('name') !== 'religiousName'
+                    && textInputs[i].value === '') {
+                    textInputs[i].classList.add('has-error');
+                    hasError = true;
+                }
+            }
+
+            if (!hasError) {
+                localStorage.removeItem('arcane_calculator');
+                let temp = {};
+                for (let i = 0; i < textInputs.length; i++) {
+                    temp[textInputs[i].getAttribute('name')] = textInputs[i].value;
+                }
+                localStorage.setItem('arcane_calculator', JSON.stringify({
+                    date: dateInput.value,
+                    ...temp
+                }));
+                renderData(parseInt(d), parseInt(m), parseInt(y));
+            }
+        });
+
+        form.dispatchEvent(new FormDataEvent('submit', {
+            formData: new FormData(),
+            cancelable: true
+        }));
+    });
+</script>
