@@ -278,7 +278,6 @@
         font-weight: 600;
         letter-spacing: 0.02em;
         border: 1.02px solid #D8D8D8;
-        isolation: isolate;
     }
 
     .arc-output__cell_square {
@@ -395,6 +394,7 @@
         width: calc(100% - 219.79px);
         overflow-x: auto;
         scrollbar-width: none;
+        overscroll-behavior-x: none;
     }
 
     @media (max-width: 1333.3333333333px) {
@@ -416,6 +416,11 @@
     .arc-output__right td:last-child,
     .arc-output__right th:last-child {
         border-right: none;
+    }
+
+    .arc-output table,
+    .arc-output tbody {
+        -webkit-mask-image: -webkit-radial-gradient(white, black);
     }
 
     .arc-js_pink {
