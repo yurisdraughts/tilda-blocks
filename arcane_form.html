@@ -206,19 +206,14 @@
                     },
                     firstName = calcNameValue('firstName'),
                     lastName = calcNameValue('lastName'),
+                    maidenName = calcNameValue('maidenName'),
                     patronymic = calcNameValue('patronymic'),
                     fathersName = calcNameValue('fathersName'),
                     mothersName = calcNameValue('mothersName'),
                     placeOfBirth = calcNameValue('placeOfBirth'),
                     countryOfBirth = calcNameValue('countryOfBirth'),
-                    religiousName = calcNameValue('religiousName');
-                let maidenName;
-                if (getTextInput('lastName').value !== getTextInput('maidenName').value) {
-                    maidenName = calcNameValue('maidenName')
-                } else {
-                    maidenName = [0];
-                }
-                const pos = calcPositions(d, m, y),
+                    religiousName = calcNameValue('religiousName'),
+                    pos = calcPositions(d, m, y),
                     prog = calcPrograms(d, m, y),
                     calcLevel = (arr) => {
                         const level = {};
