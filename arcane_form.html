@@ -201,19 +201,24 @@
                     result = {},
                     calcNameValue = (nameAttr) => {
                         const el = getTextInput(nameAttr);
-                        if (el.value === '') return [0];
+                        if (el.value === '') return [null];
                         return convertLettersToNums(el.value);
                     },
                     firstName = calcNameValue('firstName'),
-                    lastName = calcNameValue('lastName'),
                     maidenName = calcNameValue('maidenName'),
                     patronymic = calcNameValue('patronymic'),
                     fathersName = calcNameValue('fathersName'),
                     mothersName = calcNameValue('mothersName'),
                     placeOfBirth = calcNameValue('placeOfBirth'),
                     countryOfBirth = calcNameValue('countryOfBirth'),
-                    religiousName = calcNameValue('religiousName'),
-                    pos = calcPositions(d, m, y),
+                    religiousName = calcNameValue('religiousName');
+                let lastName;
+                if (getTextInput('lastName').value === getTextInput('maidenName').value) {
+                    lastName = [null];
+                } else {
+                    lastName = calcNameValue('lastName');
+                }
+                const pos = calcPositions(d, m, y),
                     prog = calcPrograms(d, m, y),
                     calcLevel = (arr) => {
                         const level = {};
@@ -308,9 +313,13 @@
                         const values = Array.from(new Set([...cells].map(cell => cell.innerHTML)))
                             .map(value => parseInt(value));
                         let max = values[0];
+                        let max2 = values[0];
                         for (let value of values) {
                             if (value > max) {
+                                max2 = max;
                                 max = value;
+                            } else if (value > max2) {
+                                max2 = value;
                             }
                         }
                         cells.forEach(cell => {
@@ -319,7 +328,7 @@
                             }
                         });
                         cells.forEach(cell => {
-                            if (cell.innerHTML === (max - 1).toString()) {
+                            if (max2 !== max && cell.innerHTML === max2.toString()) {
                                 cell.classList.add('arc-js_yellow');
                             }
                         });
