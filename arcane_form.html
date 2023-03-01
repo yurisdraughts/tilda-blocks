@@ -318,7 +318,7 @@
                             if (value > max) {
                                 max2 = max;
                                 max = value;
-                            } else if (value > max2) {
+                            } else if (value < max && value > max2) {
                                 max2 = value;
                             }
                         }
