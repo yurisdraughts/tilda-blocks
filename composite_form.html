@@ -1,0 +1,1860 @@
+<style>
+    body {
+        background-color: #000;
+    }
+
+    .tarot-composite {
+        width: 100vw;
+        margin: 0 auto;
+        font-family: "Nunito Sans", sans-serif;
+        font-style: normal;
+        border-radius: 20px;
+        background: white;
+    }
+
+    .tarot-composite,
+    .tarot-composite * {
+        box-sizing: border-box;
+    }
+
+    .tarot-composite__heading {
+        font-weight: 400;
+        font-size: 21px;
+        line-height: 29px;
+        text-align: center;
+        margin: 0;
+        color: #494CFC;
+    }
+
+    .tarot-composite__heading_short {
+        font-weight: 800;
+    }
+
+    .tarot-composite__output {
+        position: relative;
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: 390fr 390fr 255.5fr;
+        column-gap: 59px;
+        padding: 20px 20px 0;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tarot-composite {
+            width: 90vw;
+        }
+
+        .tarot-composite__heading {
+            font-size: 1.575vw;
+            line-height: 2.175vw;
+        }
+
+        .tarot-composite__output {
+            column-gap: 4.425vw;
+            padding: 1.5vw 1.5vw 0;
+        }
+    }
+
+    .tarot-composite__form {
+        max-width: 430px;
+        padding: 10px 22px 23px;
+    }
+
+    @media (max-width: 450px) {
+        .tarot-composite__form {
+            padding: 2vw 4.4vw 4.6vw;
+        }
+    }
+
+    .tcomp-block__label {
+        display: block;
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 14px;
+        text-align: center;
+        width: 100%;
+        color: #858585;
+    }
+
+    @media (max-width: 450px) {
+        .tcomp-block__label {
+            font-size: 2vw;
+            line-height: 2.8vw;
+        }
+    }
+
+    .tcomp-output .tcomp-block__label {
+        font-size: 11.3653px;
+        line-height: 16px;
+    }
+
+    .tcomp-output .tcomp-block__label_small {
+        font-size: 8px;
+        line-height: 11px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output .tcomp-block__label {
+            font-size: 0.8523975vw;
+            line-height: 1.2vw;
+        }
+
+        .tcomp-output .tcomp-block__label_small {
+            font-size: 0.6vw;
+            line-height: 0.825vw;
+        }
+    }
+
+    .tcomp-block__rect {
+        text-align: center;
+        border-radius: 10px;
+        height: 32px;
+    }
+
+    .tcomp-block__rect_input {
+        font-family: "Nunito Sans", sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        border: 1px solid #858585;
+        width: 100%;
+        color: #000000;
+    }
+
+    .tcomp-block__rect_name-input {
+        letter-spacing: 0.01em;
+    }
+
+    .tcomp-block__rect_date-input {
+        letter-spacing: 0.12em;
+        width: 140px;
+        max-width: 41.05vw;
+    }
+
+    .tcomp-block__rect_button {
+        font-weight: 700;
+        background: #494CFC;
+        color: #FFFFFF;
+        border: none;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    @media (max-width: 450px) {
+        .tcomp-block__rect_button {
+            font-size: 3.2vw;
+            line-height: 4.4vw;
+        }
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-block__rect {
+            border-radius: 0.75vw;
+            height: 2.4vw;
+        }
+
+        .tcomp-block__rect_input,
+        .tcomp-block__rect_button {
+            border-radius: 10px;
+            height: 32px;
+        }
+    }
+
+    @media (max-width: 450px) {
+        .tcomp-block__rect {
+            border-radius: 0.75vw;
+            height: 2.4vw;
+        }
+
+        .tcomp-block__rect_input,
+        .tcomp-block__rect_button {
+            border-radius: 2vw;
+            height: 6.4vw;
+        }
+    }
+
+    .tcomp-block__rect_long-output {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        letter-spacing: 0.02em;
+        color: #000000;
+        padding-top: 5px;
+        height: 32px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-block__rect_long-output {
+            font-size: 1.2vw;
+            line-height: 1.65vw;
+            padding-top: 0.375vw;
+            height: 2.4vw;
+        }
+    }
+
+    .tcomp-block__rect_long-output_1 {
+        background: #DBD6F9;
+    }
+
+    .tcomp-block__rect_long-output_2 {
+        background: #DBD6F9;
+    }
+
+    .tcomp-block__rect_long-output_3 {
+        background: #DBD6F9;
+    }
+
+    .tcomp-block__rect_long-output_4 {
+        background: #DBD6F9;
+    }
+
+    .tcomp-block__rect_long-output_5 {
+        background: #DBD6F9;
+    }
+
+    .tcomp-block__rect_long-output_6 {
+        background: #DBD6F9;
+    }
+
+    .tcomp-block__rect_long-output_7 {
+        background: #E0FACF;
+    }
+
+    .tcomp-block__rect_long-output_8 {
+        background: #E0FACF;
+    }
+
+    .tcomp-block__rect_long-output_9 {
+        background: #F6EAFF;
+    }
+
+    .tcomp-block__rect_long-output_10 {
+        background: #F6EAFF;
+    }
+
+    .tcomp-block__rect_long-output_11 {
+        background: #F6EAFF;
+    }
+
+    .tcomp-block__rect_long-output_12 {
+        background: #FFF3B8;
+    }
+
+    .tcomp-block__rect_long-output_13 {
+        border-color: #EDD3FF;
+    }
+
+    .tcomp-block__rect_long-output_14 {
+        border-color: #EDD3FF;
+    }
+
+    .tcomp-block__rect_long-output_15 {
+        border-color: #FFF3B8;
+    }
+
+    .tcomp-block__rect_long-output_16 {
+        border-color: #FFF3B8;
+    }
+
+    .tcomp-block__rect_long-output_17 {
+        border-color: #FFF3B8;
+    }
+
+    .tcomp-block__rect_long-output_18 {
+        border-color: #FFF3B8;
+    }
+
+    .tcomp-block__rect_long-output_19 {
+        border-color: #FFF3B8;
+    }
+
+    .tcomp-block__rect_long-output_20 {
+        border-color: #FFF3B8;
+    }
+
+    .tcomp-block__rect_long-output_21 {
+        border-color: #FFF3B8;
+    }
+
+    .tcomp-block__rect_long-output_30 {
+        border-color: #FFF3B8;
+    }
+
+    .tcomp-block__rect_long-output_35 {
+        border-color: #FFF3B8;
+    }
+
+    .tcomp-block__rect_long-output_32 {
+        border-color: #C6F0E6;
+    }
+
+    .tcomp-block__rect_long-output_33 {
+        border-color: #C6F0E6;
+    }
+
+    .tcomp-block__rect_long-output_34 {
+        border-color: #C6F0E6;
+    }
+
+    .tcomp-block__rect_long-output_31A {
+        border-color: #DBD6F9;
+    }
+
+    .tcomp-block__rect_long-output_31B {
+        border-color: #DBD6F9;
+    }
+
+    .tcomp-block__rect_long-output_A {
+        background: #DCF0FB;
+    }
+
+    .tcomp-block__rect_long-output_B {
+        background: #DCF0FB;
+    }
+
+    .tcomp-block__rect_long-output_C {
+        background: #DCF0FB;
+    }
+
+    .tcomp-block__rect_long-output_D {
+        background: #DCF0FB;
+    }
+
+    .tcomp-block__rect_long-output_E {
+        background: #DCF0FB;
+    }
+
+    .tcomp-block__rect_long-output_F {
+        background: #DCF0FB;
+    }
+
+    .tcomp-block__rect_long-output_H {
+        background: #EDD3FF;
+    }
+
+    .tcomp-block__rect_long-output_G1 {
+        background: #EDD3FF;
+    }
+
+    .tcomp-block__rect_long-output_G2 {
+        background: #EDD3FF;
+    }
+
+    .tcomp-block__rect_long-output_small {
+        border-radius: 8px;
+        border-width: 2px;
+        border-style: solid;
+        height: 25px;
+        padding-top: 4px;
+        font-size: 11px;
+        line-height: 15px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-block__rect_long-output_small {
+            border-radius: 0.6vw;
+            border-width: 0.15vw;
+            height: 1.875vw;
+            padding-top: 0.225vw;
+            font-size: 0.825vw;
+            line-height: 1.125vw;
+        }
+    }
+
+    .tcomp-block__rect_short-output {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 22px;
+        letter-spacing: 0.02em;
+        color: #000000;
+        padding-top: 5px;
+        height: 32px;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-block__rect_short-output {
+            font-size: 1.2vw;
+            line-height: 1.65vw;
+            padding-top: 0.375vw;
+            height: 2.4vw;
+            border-radius: 0.75vw;
+        }
+    }
+
+    .tcomp-block__rect_short-output_1 {
+        background: #DBD6F9;
+    }
+
+    .tcomp-block__rect_short-output_2 {
+        background: #DBD6F9;
+    }
+
+    .tcomp-block__rect_short-output_3 {
+        background: #DBD6F9;
+    }
+
+    .tcomp-block__rect_short-output_4 {
+        background: #DBD6F9;
+    }
+
+    .tcomp-block__rect_short-output_5 {
+        background: #DBD6F9;
+    }
+
+    .tcomp-block__rect_short-output_6 {
+        background: #DBD6F9;
+    }
+
+    .tcomp-block__rect_short-output_7 {
+        background: #E0FACF;
+    }
+
+    .tcomp-block__rect_short-output_8 {
+        background: #E0FACF;
+    }
+
+    .tcomp-block__rect_short-output_12 {
+        background: #FFF3B8;
+    }
+
+    .tcomp-block_long-output {
+        width: 50px;
+    }
+
+    .tcomp-block_long-output_small {
+        width: 40px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-block_long-output {
+            width: 3.75vw;
+        }
+
+        .tcomp-block_long-output_small {
+            width: 3vw;
+        }
+    }
+
+    .tcomp-block_short-output {
+        width: 50px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-block_short-output {
+            width: 3.75vw;
+        }
+    }
+
+    .tcomp-form__input-wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 4px;
+    }
+
+    .tcomp-form__input-wrapper>* {
+        flex-grow: 1;
+    }
+
+    .tcomp-form__input-wrapper> :first-child {
+        flex-basis: 230px;
+        margin-right: 16px;
+    }
+
+    .tcomp-form__input-wrapper> :last-child {
+        flex-basis: 140px;
+    }
+
+    .tcomp-form__input-wrapper_last {
+        margin-bottom: 18px;
+    }
+
+    @media (max-width: 450px) {
+        .tcomp-form__input-wrapper {
+            margin-bottom: 3.6vw;
+        }
+
+        .tcomp-form__input-wrapper> :first-child {
+            flex-basis: 46vw;
+            margin-right: 3.2vw;
+        }
+
+        .tcomp-form__input-wrapper> :last-child {
+            flex-basis: 28vw;
+        }
+    }
+
+    .tcomp-form__date-input-wrapper {
+        position: relative;
+    }
+
+    .tcomp-form__date-input.has-error {
+        border-color: #c64242;
+        color: #c64242;
+        outline-color: #c64242;
+    }
+
+    .tcomp-output {
+        max-width: 390px;
+    }
+
+    .tcomp-output_long {
+        position: relative;
+        height: 700px;
+    }
+
+    .tcomp-output_long>* {
+        position: absolute;
+    }
+
+    .tcomp-output_long_decoration-1 {
+        top: 166.5px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_decoration-1 {
+            top: 12.4875vw;
+        }
+    }
+
+    .tcomp-output_long_decoration-1 {
+        left: 0px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_decoration-1 {
+            left: 0vw;
+        }
+    }
+
+    .tcomp-output_long_decoration-2 {
+        top: 258.5px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_decoration-2 {
+            top: 19.3875vw;
+        }
+    }
+
+    .tcomp-output_long_decoration-2 {
+        left: 22px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_decoration-2 {
+            left: 1.65vw;
+        }
+    }
+
+    .tcomp-output_long_decoration-3 {
+        top: 425px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_decoration-3 {
+            top: 31.875vw;
+        }
+    }
+
+    .tcomp-output_long_decoration-3 {
+        left: 22px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_decoration-3 {
+            left: 1.65vw;
+        }
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long {
+            height: 52.5vw;
+        }
+
+        .tcomp-output_long_decoration-1 {
+            width: 29.25vw;
+        }
+
+        .tcomp-output_long_decoration-2,
+        .tcomp-output_long_decoration-3 {
+            width: 13.5vw;
+            height: 7.0875vw;
+        }
+    }
+
+    .tcomp-output_long_11 {
+        left: 87px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_11 {
+            left: 6.525vw;
+        }
+    }
+
+    .tcomp-output_long_2 {
+        left: 87px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_2 {
+            left: 6.525vw;
+        }
+    }
+
+    .tcomp-output_long_6 {
+        left: 87px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_6 {
+            left: 6.525vw;
+        }
+    }
+
+    .tcomp-output_long_8 {
+        left: 87px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_8 {
+            left: 6.525vw;
+        }
+    }
+
+    .tcomp-output_long_A {
+        left: 87px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_A {
+            left: 6.525vw;
+        }
+    }
+
+    .tcomp-output_long_E {
+        left: 87px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_E {
+            left: 6.525vw;
+        }
+    }
+
+    .tcomp-output_long_H {
+        left: 87px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_H {
+            left: 6.525vw;
+        }
+    }
+
+    .tcomp-output_long_9 {
+        left: 56px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_9 {
+            left: 4.2vw;
+        }
+    }
+
+    .tcomp-output_long_4 {
+        left: 56px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_4 {
+            left: 4.2vw;
+        }
+    }
+
+    .tcomp-output_long_B {
+        left: 56px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_B {
+            left: 4.2vw;
+        }
+    }
+
+    .tcomp-output_long_10 {
+        left: 118px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_10 {
+            left: 8.85vw;
+        }
+    }
+
+    .tcomp-output_long_5 {
+        left: 118px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_5 {
+            left: 8.85vw;
+        }
+    }
+
+    .tcomp-output_long_C {
+        left: 118px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_C {
+            left: 8.85vw;
+        }
+    }
+
+    .tcomp-output_long_1 {
+        left: 25px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_1 {
+            left: 1.875vw;
+        }
+    }
+
+    .tcomp-output_long_D {
+        left: 25px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_D {
+            left: 1.875vw;
+        }
+    }
+
+    .tcomp-output_long_3 {
+        left: 149px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_3 {
+            left: 11.175vw;
+        }
+    }
+
+    .tcomp-output_long_F {
+        left: 149px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_F {
+            left: 11.175vw;
+        }
+    }
+
+    .tcomp-output_long_7 {
+        left: 227px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_7 {
+            left: 17.025vw;
+        }
+    }
+
+    .tcomp-output_long_12 {
+        left: 227px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_12 {
+            left: 17.025vw;
+        }
+    }
+
+    .tcomp-output_long_G1 {
+        left: 227px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_G1 {
+            left: 17.025vw;
+        }
+    }
+
+    .tcomp-output_long_G2 {
+        left: 289px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_G2 {
+            left: 21.675vw;
+        }
+    }
+
+    .tcomp-output_long_17 {
+        left: 327px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_17 {
+            left: 24.525vw;
+        }
+    }
+
+    .tcomp-output_long_20 {
+        left: 327px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_20 {
+            left: 24.525vw;
+        }
+    }
+
+    .tcomp-output_long_35 {
+        left: 327px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_35 {
+            left: 24.525vw;
+        }
+    }
+
+    .tcomp-output_long_34 {
+        left: 327px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_34 {
+            left: 24.525vw;
+        }
+    }
+
+    .tcomp-output_long_31B {
+        left: 329px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_31B {
+            left: 24.675vw;
+        }
+    }
+
+    .tcomp-output_long_14 {
+        left: 329px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_14 {
+            left: 24.675vw;
+        }
+    }
+
+    .tcomp-output_long_16 {
+        left: 281px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_16 {
+            left: 21.075vw;
+        }
+    }
+
+    .tcomp-output_long_19 {
+        left: 281px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_19 {
+            left: 21.075vw;
+        }
+    }
+
+    .tcomp-output_long_30 {
+        left: 281px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_30 {
+            left: 21.075vw;
+        }
+    }
+
+    .tcomp-output_long_33 {
+        left: 281px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_33 {
+            left: 21.075vw;
+        }
+    }
+
+    .tcomp-output_long_31A {
+        left: 283px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_31A {
+            left: 21.225vw;
+        }
+    }
+
+    .tcomp-output_long_13 {
+        left: 283px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_13 {
+            left: 21.225vw;
+        }
+    }
+
+    .tcomp-output_long_15 {
+        left: 235px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_15 {
+            left: 17.625vw;
+        }
+    }
+
+    .tcomp-output_long_18 {
+        left: 235px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_18 {
+            left: 17.625vw;
+        }
+    }
+
+    .tcomp-output_long_21 {
+        left: 235px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_21 {
+            left: 17.625vw;
+        }
+    }
+
+    .tcomp-output_long_32 {
+        left: 235px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_32 {
+            left: 17.625vw;
+        }
+    }
+
+    .tcomp-output_long_11 {
+        top: 45px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_11 {
+            top: 3.375vw;
+        }
+    }
+
+    .tcomp-output_long_9 {
+        top: 99px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_9 {
+            top: 7.425vw;
+        }
+    }
+
+    .tcomp-output_long_10 {
+        top: 99px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_10 {
+            top: 7.425vw;
+        }
+    }
+
+    .tcomp-output_long_1 {
+        top: 179px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_1 {
+            top: 13.425vw;
+        }
+    }
+
+    .tcomp-output_long_2 {
+        top: 179px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_2 {
+            top: 13.425vw;
+        }
+    }
+
+    .tcomp-output_long_3 {
+        top: 179px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_3 {
+            top: 13.425vw;
+        }
+    }
+
+    .tcomp-output_long_4 {
+        top: 233px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_4 {
+            top: 17.475vw;
+        }
+    }
+
+    .tcomp-output_long_5 {
+        top: 233px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_5 {
+            top: 17.475vw;
+        }
+    }
+
+    .tcomp-output_long_6 {
+        top: 287px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_6 {
+            top: 21.525vw;
+        }
+    }
+
+    .tcomp-output_long_7 {
+        top: 265px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_7 {
+            top: 19.875vw;
+        }
+    }
+
+    .tcomp-output_long_8 {
+        top: 361px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_8 {
+            top: 27.075vw;
+        }
+    }
+
+    .tcomp-output_long_12 {
+        top: 319px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_12 {
+            top: 23.925vw;
+        }
+    }
+
+    .tcomp-output_long_A {
+        top: 435px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_A {
+            top: 32.625vw;
+        }
+    }
+
+    .tcomp-output_long_B {
+        top: 489px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_B {
+            top: 36.675vw;
+        }
+    }
+
+    .tcomp-output_long_C {
+        top: 489px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_C {
+            top: 36.675vw;
+        }
+    }
+
+    .tcomp-output_long_D {
+        top: 543px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_D {
+            top: 40.725vw;
+        }
+    }
+
+    .tcomp-output_long_E {
+        top: 543px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_E {
+            top: 40.725vw;
+        }
+    }
+
+    .tcomp-output_long_F {
+        top: 543px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_F {
+            top: 40.725vw;
+        }
+    }
+
+    .tcomp-output_long_H {
+        top: 607px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_H {
+            top: 45.525vw;
+        }
+    }
+
+    .tcomp-output_long_G1 {
+        top: 607px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_G1 {
+            top: 45.525vw;
+        }
+    }
+
+    .tcomp-output_long_G2 {
+        top: 607px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_G2 {
+            top: 45.525vw;
+        }
+    }
+
+    .tcomp-output_long_15 {
+        top: 23px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_15 {
+            top: 1.725vw;
+        }
+    }
+
+    .tcomp-output_long_16 {
+        top: 23px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_16 {
+            top: 1.725vw;
+        }
+    }
+
+    .tcomp-output_long_17 {
+        top: 23px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_17 {
+            top: 1.725vw;
+        }
+    }
+
+    .tcomp-output_long_18 {
+        top: 64px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_18 {
+            top: 4.8vw;
+        }
+    }
+
+    .tcomp-output_long_19 {
+        top: 64px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_19 {
+            top: 4.8vw;
+        }
+    }
+
+    .tcomp-output_long_20 {
+        top: 64px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_20 {
+            top: 4.8vw;
+        }
+    }
+
+    .tcomp-output_long_21 {
+        top: 105px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_21 {
+            top: 7.875vw;
+        }
+    }
+
+    .tcomp-output_long_30 {
+        top: 105px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_30 {
+            top: 7.875vw;
+        }
+    }
+
+    .tcomp-output_long_35 {
+        top: 105px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_35 {
+            top: 7.875vw;
+        }
+    }
+
+    .tcomp-output_long_31A {
+        top: 185px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_31A {
+            top: 13.875vw;
+        }
+    }
+
+    .tcomp-output_long_31B {
+        top: 185px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_31B {
+            top: 13.875vw;
+        }
+    }
+
+    .tcomp-output_long_13 {
+        top: 325px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_13 {
+            top: 24.375vw;
+        }
+    }
+
+    .tcomp-output_long_14 {
+        top: 325px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_14 {
+            top: 24.375vw;
+        }
+    }
+
+    .tcomp-output_long_32 {
+        top: 523px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_32 {
+            top: 39.225vw;
+        }
+    }
+
+    .tcomp-output_long_33 {
+        top: 523px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_33 {
+            top: 39.225vw;
+        }
+    }
+
+    .tcomp-output_long_34 {
+        top: 523px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_long_34 {
+            top: 39.225vw;
+        }
+    }
+
+    .tcomp-output_short {
+        position: relative;
+    }
+
+    .tcomp-output_short>* {
+        position: absolute;
+    }
+
+    .tcomp-output_short_decoration {
+        top: 258.5px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_decoration {
+            top: 19.3875vw;
+        }
+    }
+
+    .tcomp-output_short_decoration {
+        left: 0px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_decoration {
+            left: 0vw;
+        }
+    }
+
+    .tcomp-output_short_decoration {
+        width: 180px;
+        height: 94.5px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_decoration {
+            width: 13.5vw;
+            height: 7.0875vw;
+        }
+    }
+
+    .tcomp-output_short_2 {
+        left: 65px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_2 {
+            left: 4.875vw;
+        }
+    }
+
+    .tcomp-output_short_6 {
+        left: 65px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_6 {
+            left: 4.875vw;
+        }
+    }
+
+    .tcomp-output_short_8 {
+        left: 65px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_8 {
+            left: 4.875vw;
+        }
+    }
+
+    .tcomp-output_short_4 {
+        left: 34px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_4 {
+            left: 2.55vw;
+        }
+    }
+
+    .tcomp-output_short_5 {
+        left: 96px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_5 {
+            left: 7.2vw;
+        }
+    }
+
+    .tcomp-output_short_1 {
+        left: 3px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_1 {
+            left: 0.225vw;
+        }
+    }
+
+    .tcomp-output_short_3 {
+        left: 127px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_3 {
+            left: 9.525vw;
+        }
+    }
+
+    .tcomp-output_short_7 {
+        left: 205px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_7 {
+            left: 15.375vw;
+        }
+    }
+
+    .tcomp-output_short_12 {
+        left: 205px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_12 {
+            left: 15.375vw;
+        }
+    }
+
+    .tcomp-output_short_1 {
+        top: 179px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_1 {
+            top: 13.425vw;
+        }
+    }
+
+    .tcomp-output_short_2 {
+        top: 179px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_2 {
+            top: 13.425vw;
+        }
+    }
+
+    .tcomp-output_short_3 {
+        top: 179px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_3 {
+            top: 13.425vw;
+        }
+    }
+
+    .tcomp-output_short_4 {
+        top: 233px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_4 {
+            top: 17.475vw;
+        }
+    }
+
+    .tcomp-output_short_5 {
+        top: 233px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_5 {
+            top: 17.475vw;
+        }
+    }
+
+    .tcomp-output_short_6 {
+        top: 287px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_6 {
+            top: 21.525vw;
+        }
+    }
+
+    .tcomp-output_short_7 {
+        top: 265px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_7 {
+            top: 19.875vw;
+        }
+    }
+
+    .tcomp-output_short_8 {
+        top: 361px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_8 {
+            top: 27.075vw;
+        }
+    }
+
+    .tcomp-output_short_12 {
+        top: 319px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output_short_12 {
+            top: 23.925vw;
+        }
+    }
+
+    .tcomp-output__hl {
+        position: absolute;
+        top: 53.5px;
+        left: 20px;
+        width: 1154px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output__hl {
+            top: 4.0125vw;
+            left: 1.5vw;
+            width: 86.55vw;
+        }
+    }
+
+    .tcomp-output__vl {
+        position: absolute;
+        top: 20px;
+        height: 710px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output__vl {
+            top: 1.5vw;
+            height: 53.25vw;
+        }
+    }
+
+    .tcomp-output__vl_1 {
+        left: 439px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output__vl_1 {
+            left: 32.925vw;
+        }
+    }
+
+    .tcomp-output__vl_2 {
+        left: 888px;
+    }
+
+    @media (max-width: 1333.3333333333px) {
+        .tcomp-output__vl_2 {
+            left: 66.6vw;
+        }
+    }
+</style>
+
+<div class="tarot-composite tarot-composite__form">
+    <form class="tcomp-form" action="#" method="post">
+
+        <div class="tcomp-form__input-wrapper">
+            <div class="tcomp-block">
+                <label class="tcomp-block__label">имя</label>
+                <input
+                    class="tcomp-block__rect tcomp-block__rect_input tcomp-block__rect_name-input tcomp-form__name-input tcomp-form__name-input_1"
+                    type="text" name="name" value="">
+            </div>
+
+            <div class="tcomp-block tcomp-form__date-input-wrapper">
+                <label class="tcomp-block__label">дата рождения</label>
+                <input
+                    class="tcomp-block__rect tcomp-block__rect_input tcomp-block__rect_date-input tcomp-form__date-input tcomp-form__date-input_1"
+                    type="text" name="date" inputmode="numeric">
+            </div>
+        </div>
+
+        <div class="tcomp-form__input-wrapper tcomp-form__input-wrapper_last">
+            <div class="tcomp-block">
+                <label class="tcomp-block__label">имя</label>
+                <input
+                    class="tcomp-block__rect tcomp-block__rect_input tcomp-block__rect_name-input tcomp-form__name-input tcomp-form__name-input_2"
+                    type="text" name="name" value="">
+            </div>
+
+            <div class="tcomp-block tcomp-form__date-input-wrapper">
+                <label class="tcomp-block__label">дата рождения</label>
+                <input
+                    class="tcomp-block__rect tcomp-block__rect_input tcomp-block__rect_date-input tcomp-form__date-input tcomp-form__date-input_2"
+                    type="text" name="date" inputmode="numeric">
+            </div>
+        </div>
+
+        <div class="tcomp-block">
+            <input class="tcomp-block__rect tcomp-block__rect_input tcomp-block__rect_button" type="submit"
+                value="рассчитать">
+        </div>
+    </form>
+</div>
+
+<script>
+    "use strict";
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const positionsShort = document.querySelectorAll('#tcomp-short-output [data-position]'),
+            positionsLong1 = document.querySelectorAll('#tcomp-long-output-1 [data-position]'),
+            positionsLong2 = document.querySelectorAll('#tcomp-long-output-2 [data-position]'),
+            heading1 = document.querySelector('.tarot-composite__heading_long1'),
+            heading2 = document.querySelector('.tarot-composite__heading_long2'),
+            form = document.querySelector('.tcomp-form'),
+            dateInput1 = document.querySelector('.tcomp-form__date-input_1'),
+            dateInput2 = document.querySelector('.tcomp-form__date-input_2'),
+            nameInput1 = document.querySelector('.tcomp-form__name-input_1'),
+            nameInput2 = document.querySelector('.tcomp-form__name-input_2'),
+            convertToRoman = decimal => {
+                const chart = [
+                    ['X', 10],
+                    ['IX', 9],
+                    ['V', 5],
+                    ['IV', 4],
+                    ['I', 1]
+                ];
+
+                return chart.reduce((acc, numeral) => {
+                    const [roman, remainder] = acc;
+                    const [letter, value] = numeral;
+                    return [
+                        roman + letter.repeat(remainder / value),
+                        remainder % value
+                    ];
+                }, ['', decimal])[0];
+
+            },
+            digitSum = (...vals) => (
+                vals
+                    .flatMap(val => val.toString().split(""))
+                    .reduce((a, b) => a + parseInt(b), 0)
+            ),
+            recursiveSum = (...vals) => {
+                const result = digitSum(...vals);
+                return result < 10 ? result : recursiveSum(result);
+            },
+            mod22 = val => val % 22 !== 0 ? val % 22 : 22,
+            abs22 = val => val === 0 ? 22 : Math.abs(val),
+            getInitPositions = (d, m, y) => {
+                const res = {};
+                res[1] = mod22(d);
+                res[2] = m;
+                res[3] = mod22(digitSum(y));
+                res[4] = mod22(res[1] + res[2]);
+                res[5] = mod22(res[2] + res[3]);
+                res[6] = mod22(res[4] + res[5]);
+                res[7] = mod22(res[1] + res[5]);
+                res[8] = mod22(res[2] + res[6]);
+                res[12] = mod22(res[7] + res[8]);
+                return res;
+            },
+            getPositions = (d, m, y, initPositions) => {
+                const res = Object.assign({}, initPositions);
+                res[9] = abs22(res[1] - res[2]);
+                res[10] = abs22(res[2] - res[3]);
+                res[11] = abs22(res[9] - res[10]);
+                res[13] = mod22(res[1] + res[4] + res[6]);
+                res[14] = mod22(res[3] + res[5] + res[6]);
+                res[15] = mod22(abs22(res[9] + res[10] + res[11] - res[7]));
+                res[16] = mod22(res[1] + res[3] + res[4] + res[5]);
+                res[17] = mod22(res[11] + res[6]);
+                res[18] = mod22(res[11] + res[8]);
+                res[19] = mod22(res[4] + res[6]);
+                res[20] = mod22(res[5] + res[6] + res[7]);
+                res[21] = mod22(res[1] + res[2] + res[3] + res[4] + res[5] + res[6]);
+                res[30] = mod22(res[4] + res[5] + res[6] + res[12]);
+                res['31A'] = mod22(digitSum(d, m, y));
+                res['31B'] = recursiveSum(d, m, y);
+                res['A'] = mod22(res[1] + res[4]);
+                res['B'] = mod22(res[4] + res[2]);
+                res['C'] = mod22(res[5] + res[2]);
+                res['D'] = mod22(res[3] + res[5]);
+                res['E'] = mod22(res[4] + res[6]);
+                res['F'] = mod22(res[6] + res[5]);
+                res['G1'] = mod22(res['C'] + res['D']);
+                res['G2'] = mod22(res['B'] + res['F']);
+                res['H'] = mod22(res['A'] + res['E']);
+                res[32] = abs22(res['A'] - res[10]);
+                res[33] = abs22(res['A'] - res[12]);
+                res[34] = abs22(res['A'] - res[11]);
+                res[35] = mod22(abs22(res[9] + res[10] + res[11] - 10));
+                return res;
+            },
+            recalcPositions = ({ d1, d2, m1, m2, y1, y2 }) => {
+                for (const number of Object.values({ d1, d2, m1, m2, y1, y2 })) {
+                    if (isNaN(number)) return;
+                }
+                const valsShort = {},
+                    res1 = getInitPositions(d1, m1, y1),
+                    res2 = getInitPositions(d2, m2, y2),
+                    valsLong1 = getPositions(d1, m1, y1, res1),
+                    valsLong2 = getPositions(d2, m2, y2, res2);
+                for (let i = 1; i <= 8; i++) {
+                    valsShort[i] = mod22(res1[i] + res2[i]);
+                }
+                valsShort[12] = mod22(res1[12] + res2[12]);
+
+                for (let pos of positionsShort) {
+                    pos.innerHTML = convertToRoman(valsShort[pos.dataset.position]);
+                }
+                for (let pos of positionsLong1) {
+                    pos.innerHTML = convertToRoman(valsLong1[pos.dataset.position])
+                }
+                for (let pos of positionsLong2) {
+                    pos.innerHTML = convertToRoman(valsLong2[pos.dataset.position])
+                }
+            },
+            // Source: https://stackoverflow.com/a/55010378
+            pattern = "__.__.____",
+            dateInputMask = el => {
+                const prev = [1, 2, 2, 4, 5, 5, 7, 8, 9, 10],
+                    accept = /\d/g,
+                    clean = input => {
+                        input = input.match(accept) || [];
+                        return Array.from(pattern, c =>
+                            input[0] === c || c === "_" ? input.shift() || c : c
+                        );
+                    },
+                    format = () => {
+                        const [i, j] = [el.selectionStart, el.selectionEnd].map(i => {
+                            i = clean(el.value.slice(0, i)).findIndex(c => c === "_");
+                            return i < 0 ? prev[prev.length - 1] : back ? prev[i - 1] || 0 : i;
+                        });
+                        el.value = clean(el.value).join('');
+                        el.setSelectionRange(i, j);
+                        back = false;
+                    };
+                let back = false;
+
+                el.addEventListener("keydown", (e) => back = e.key === "Backspace");
+                el.addEventListener("input", format);
+                el.addEventListener("focus", format);
+                el.addEventListener("blur", () => el.value === pattern && (el.value = ""));
+            },
+            validateInput = dateInput => {
+                dateInput.classList.remove('has-error');
+                let hasError = false;
+
+                if (dateInput.value === '' || dateInput.value === pattern) {
+                    hasError = true;
+                    return { hasError };
+                }
+
+                const date = dateInput.value.split('.').map(str => parseInt(str)),
+                    [d, m, y] = date,
+                    maxD = (new Date(y, m, 0)).getDate();
+
+                if (
+                    d < 1 || d > maxD || isNaN(d)
+                    || m < 1 || m > 12 || isNaN(m)
+                    || y < 1500 || y > 2050 || isNaN(y)
+                ) {
+                    dateInput.classList.add('has-error');
+                    hasError = true;
+                }
+
+                return { hasError, d, m, y };
+            };
+
+        dateInputMask(dateInput1);
+        dateInputMask(dateInput2);
+
+        dateInput1.addEventListener('keydown', () => {
+            dateInput1.classList.remove('has-error');
+            dateInput2.classList.remove('has-error');
+        });
+        dateInput2.addEventListener('keydown', () => {
+            dateInput1.classList.remove('has-error');
+            dateInput2.classList.remove('has-error');
+        });
+
+        if (localStorage && localStorage.getItem('tarot_composite')) {
+            const localStorageValue = JSON.parse(localStorage.getItem('tarot_composite'));
+            nameInput1.value = localStorageValue.name1 || '';
+            dateInput1.value = localStorageValue.date1 || '';
+            nameInput2.value = localStorageValue.name2 || '';
+            dateInput2.value = localStorageValue.date2 || '';
+        }
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const { hasError: hasError1, d: d1, m: m1, y: y1 } = validateInput(dateInput1);
+            const { hasError: hasError2, d: d2, m: m2, y: y2 } = validateInput(dateInput2);
+            if (hasError1 && !hasError2) {
+                dateInput1.classList.add('has-error');
+                return;
+            } else if (!hasError1 && hasError2) {
+                dateInput2.classList.add('has-error');
+                return;
+            } else if (hasError1 && hasError2) {
+                return;
+            }
+
+            localStorage.removeItem('tarot_composite');
+            localStorage.setItem('tarot_composite', JSON.stringify({
+                date1: dateInput1.value,
+                name1: nameInput1.value,
+                date2: dateInput2.value,
+                name2: nameInput2.value
+            }));
+
+            heading1.innerHTML = nameInput1.value;
+            heading2.innerHTML = nameInput2.value;
+
+            recalcPositions({
+                d1: parseInt(d1), m1: parseInt(m1), y1: parseInt(y1),
+                d2: parseInt(d2), m2: parseInt(m2), y2: parseInt(y2)
+            });
+        });
+
+        form.dispatchEvent(new FormDataEvent('submit', {
+            formData: new FormData(),
+            cancelable: true
+        }));
+    });
+</script>
